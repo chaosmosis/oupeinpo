@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accès - Projet Oupeinpo</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #f8f8f8;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+      letter-spacing: 1px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    input[type="password"], input[type="submit"] {
+      padding: 0.6em 1em;
+      font-size: 1em;
+      margin: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="submit"] {
+      background-color: #111;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #333;
+    }
+    .error {
+      color: darkred;
+      margin-top: 1em;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Projet Oupeinpo</h1>
+  <p>Veuillez entrer le mot de passe pour accéder à l'espace visiteur.</p>
+  <form onsubmit="return checkPassword();">
+    <input type="password" id="password" placeholder="Mot de passe">
+    <input type="submit" value="Entrer">
+    <div class="error" id="error">Mot de passe incorrect.</div>
+  </form>
+
+  <script>
+    function checkPassword() {
+      const pass = document.getElementById('password').value.trim().toLowerCase();
+      if (pass === "académie" || pass === "academie" || pass === "molenbeek") {
+        window.location.href = "formulaire.html";
+        return false;
+      } else {
+        document.getElementById('error').style.display = 'block';
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
