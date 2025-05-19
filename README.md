@@ -22,8 +22,7 @@ Ce dépôt est mis à disposition sous une double licence :
 
 Tout usage contraire à l’esprit du projet (surveillance, armement, algorithmes discriminants, exploitation marchande, récupération néolibérale) est explicitement interdit.
 
-Ce projet est une œuvre critique, collective et évolutive.
 
 ---
 
-© Nova (2025)
+© xyzetc(2025)
