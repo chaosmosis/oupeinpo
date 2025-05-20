@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualisation – Oupeinpo</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #fafafa;
+      color: #222;
+      text-align: center;
+      padding: 2em;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 1em;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1em;
+    }
+    .gallery img {
+      width: 200px;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    a.back {
+      display: inline-block;
+      margin-top: 2em;
+      text-decoration: none;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Images synthétiques générées</h1>
+  <div class="gallery">
+    % for image in images:
+      <img src="/synth/{{image}}" alt="{{image}}">
+    % end
+  </div>
+  <a class="back" href="/index.html">← Retour à l’accueil</a>
+</body>
+</html>

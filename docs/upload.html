@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Téléversement – Oupeinpo</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f5f5f5; padding: 2em; }
+    h1 { font-size: 1.6em; }
+    #image-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1em; }
+    .thumb { position: relative; display: inline-block; }
+    .thumb img { width: 120px; height: 120px; object-fit: cover; border: 1px solid #ccc; }
+    .delete-btn {
+      position: absolute; top: 2px; right: 2px;
+      background: rgba(0,0,0,0.7); color: white; border: none;
+      cursor: pointer; font-size: 0.8em; padding: 2px 5px; border-radius: 3px;
+    }
+    #finaliser {
+      margin-top: 20px; padding: 0.7em 1.5em; font-size: 1em;
+      background-color: #111; color: white; border: none;
+      border-radius: 4px; cursor: not-allowed;
+    }
+    #finaliser.enabled { background-color: #333; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Envoyez vos images (12 minimum)</h1>
+  <form id="upload-form">
+    <input type="file" name="upload" accept=".jpg,.jpeg,.png" multiple required>
+    <input type="submit" value="Téléverser">
+  </form>
+
+  <div id="image-list"></div>
+  <button id="finaliser" disabled>Finaliser l'envoi</button>
+
+  <script>
+    async function refreshImages() {
+      const res = await fetch('/images');
+      const images = await res.json();
+      const list = document.getElementById('image-list');
+      list.innerHTML = '';
+
+      images.forEach(img => {
+        const div = document.createElement('div');
+        div.className = 'thumb';
+        div.innerHTML = `
+          <img src="/app/static/thumbs/${img}" alt="${img}">
+        `;
+        list.appendChild(div);
+      });
+
+      const finalBtn = document.getElementById('finaliser');
+      if (images.length >= 12) {
+        finalBtn.disabled = false;
+        finalBtn.classList.add('enabled');
+      } else {
+        finalBtn.disabled = true;
+        finalBtn.classList.remove('enabled');
+      }
+    }
+
+    document.getElementById('upload-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const files = e.target.upload.files;
+      for (let file of files) {
+        const formData = new FormData();
+        formData.append('upload', file);
+        await fetch('/upload', { method: 'POST', body: formData });
+      }
+      await refreshImages();
+    });
+
+    document.getElementById('finaliser').addEventListener('click', async () => {
+      if (!document.getElementById('finaliser').disabled) {
+        await fetch('/finaliser', { method: 'POST' });
+        window.location.href = "/visualisation";
+      }
+    });
+
+    refreshImages();
+  </script>
+</body>
+</html>
