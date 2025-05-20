@@ -50,31 +50,30 @@
   </style>
 </head>
 <body>
-  <h1>Participation – OuPeOnPo</h1>
+  <h1>Participation – OuPeInPo</h1>
   <p>Merci de renseigner vos coordonnées pour accéder à l’espace de téléversement d’images.</p>
- <form id="userForm">
-  <input type="text" name="prenom" placeholder="Prénom">
-  <input type="text" name="nom" placeholder="Nom">
-  <input type="email" name="email" placeholder="Adresse e-mail (obligatoire)" required>
-  <input type="submit" value="Continuer">
-</form>
 
-<script>
-document.getElementById("userForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // empêche l'envoi classique
+  <form id="userForm">
+    <input type="text" name="prenom" placeholder="Prénom" required>
+    <input type="text" name="nom" placeholder="Nom" required>
+    <input type="email" name="email" placeholder="Adresse e-mail (obligatoire)" required>
+    <input type="submit" value="Continuer">
+  </form>
 
-    const formData = new FormData(this);
-    const dataObject = {};
-    formData.forEach((value, key) => {
-        dataObject[key] = value;
+  <script>
+    document.getElementById("userForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // empêche l’envoi du formulaire
+
+        const formData = new FormData(this);
+        const dataObject = {};
+        formData.forEach((value, key) => {
+            dataObject[key] = value;
+        });
+
+        localStorage.setItem("userData", JSON.stringify(dataObject));
+
+        window.location.href = "upload.html";
     });
-
-    localStorage.setItem("userData", JSON.stringify(dataObject)); // sauvegarde
-
-    window.location.href = "upload.html"; // redirection
-});
-</script>
-</body>
-</html>
+  </script>
 </body>
 </html>
